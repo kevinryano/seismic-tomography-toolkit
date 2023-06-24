@@ -26,8 +26,8 @@ def main():
         delta = st.number_input("Input Delta XYZ", min_value=10, max_value=100, step=5)
         interp_method = st.radio("Input Interpolation Method", options=['linear', 'rbf'])
 
-        nama_file_grid = st.text_input("File Output Name")
         veldat = st.file_uploader("Upload Velocity Data", type=["csv"])
+        nama_file_grid = st.text_input("File Output Name")
         gridBtn = st.button("Start Gridding")
 
         if gridBtn:
