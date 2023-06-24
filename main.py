@@ -14,7 +14,7 @@ with st.sidebar:
     )
 
 if selected == "Home":
-    st.title("Seismic Tomography Toolkitgit")
+    st.title("Seismic Tomography Toolkit")
     st.write("By Kevin Ryano (@kevinryano)")
     st.markdown("---")
 
