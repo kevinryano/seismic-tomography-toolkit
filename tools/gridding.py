@@ -6,7 +6,7 @@ import pandas as pd
 from pyevtk.hl import pointsToVTK, gridToVTK
 from scipy.interpolate import griddata, Rbf
 
-def grid_vel(data, delta=10, interp_method="rbf"):
+def grid_vel(data, delta=20, interp_method="rbf"):
     data = pd.read_csv(data)
     # Reformat data to numpy array
     x = data['X'].values
@@ -17,9 +17,9 @@ def grid_vel(data, delta=10, interp_method="rbf"):
     vp_vs = data['Vp/Vs'].values
 
     # Create spatial grid
-    grid_x, grid_y, grid_z = np.meshgrid(np.arange(min(x), max(x)+delta, delta),
-                                         np.arange(min(y), max(y)+delta, delta),
-                                         np.arange(min(z), max(z)+delta, delta))
+    grid_x, grid_y, grid_z = np.meshgrid(np.arange(min(x), max(x)+1, delta),
+                                         np.arange(min(y), max(y)+1, delta),
+                                         np.arange(min(z), max(z)+1, delta))
 
     # Interpolate Vp, Vs, Vp/Vs
     if interp_method == "linear":
