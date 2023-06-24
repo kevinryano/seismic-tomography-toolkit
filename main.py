@@ -1,5 +1,4 @@
-import numpy as np
-import pandas as pd
+import os
 import time
 import streamlit as st
 from streamlit_option_menu import option_menu
@@ -35,6 +34,12 @@ if selected == "Gridding":
         x, y, z, vp, vs, ps = grid_vel(veldat, delta=int(delta), interp_method=interp_method)
         create_vts(x, y, z, vp, vs, ps, nama_file=nama_file_grid)
         t1 = time.perf_counter()
+
+        with open('./Hasil Gridding/'+nama_file_grid, "rb") as file_vts:
+            downloadBtn = st.download_button(label="Download VTS File",
+                                             data=file_vts,
+                                             file_name=nama_file_grid)
+            os.remove('./Hasil Gridding/'+nama_file_grid)
         st.markdown("***")
         st.text(f"========== {nama_file_grid}.vts Created ==========\n")
         st.text(f"> Interpolation Method \t: {interp_method}")
