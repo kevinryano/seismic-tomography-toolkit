@@ -34,5 +34,6 @@ def grid_vel(data, delta=10, interp_method="rbf"):
     return grid_x, grid_y, grid_z, grid_vp, grid_vs, grid_ps
 
 def create_vts(x, y, z, vp, vs, ps, nama_file="tomogram"):
-    os.makedirs("Hasil Gridding", exist_ok=True)
-    gridToVTK(f"./Hasil Gridding/{nama_file}", x, y, z, pointData={"Vp":vp, "Vs":vs, "Vp/Vs":ps})
+    # os.makedirs("Hasil Gridding", exist_ok=True)
+    # gridToVTK(f"./Hasil Gridding/{nama_file}", x, y, z, pointData={"Vp":vp, "Vs":vs, "Vp/Vs":ps})
+    gridToVTK(nama_file, x, y, z, pointData={"Vp": vp, "Vs": vs, "Vp/Vs": ps})
