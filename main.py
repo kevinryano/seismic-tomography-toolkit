@@ -23,30 +23,41 @@ def main():
         st.write("Tomogram gridding tools")
         st.markdown("---")
 
-        delta = st.number_input("Input Delta XYZ", min_value=10, max_value=100, step=5)
-        interp_method = st.radio("Input Interpolation Method", options=['linear', 'rbf'])
+        cols = st.columns(3)
+
+        delta_x = cols[0].number_input("Input Delta X", min_value=10, max_value=100, step=5)
+        delta_y = cols[1].number_input("Input Delta Y", min_value=10, max_value=100, step=5)
+        delta_z = cols[2].number_input("Input Delta Z", min_value=10, max_value=100, step=5)
 
         veldat = st.file_uploader("Upload Velocity Data", type=["csv"])
-        nama_file_grid = st.text_input("File Output Name")
-        gridBtn = st.button("Start Gridding")
+        interp_method = st.radio("Input Interpolation Method", options=['linear', 'rbf'])
 
+        gridBtn = st.button("Start Gridding")
         if gridBtn:
             t0 = time.perf_counter()
-            x, y, z, vp, vs, ps = grid_vel(veldat, delta=int(delta), interp_method=interp_method)
-            create_vts(x, y, z, vp, vs, ps, nama_file=nama_file_grid)
+            x, y, z, vp, vs, ps = grid_vel(veldat,
+                                           deltax=int(delta_x),
+                                           deltay=int(delta_y),
+                                           deltaz=int(delta_z),
+                                           interp_method=interp_method)
+            create_vts(x, y, z, vp, vs, ps, nama_file="temp")
             t1 = time.perf_counter()
 
-            with open(nama_file_grid+".vts", "rb") as file_vts:
-                downloadBtn = st.download_button(label="Download VTS File",
-                                                 data=file_vts,
-                                                 file_name=nama_file_grid+".vts")
-                if downloadBtn:
-                    file_vts.close()
-                    os.remove(nama_file_grid+".vts")
-            st.markdown("***")
-            st.text(f"========== {nama_file_grid}.vts Created ==========\n")
+            st.text("========== Process Done ==========")
             st.text(f"> Interpolation Method \t: {interp_method}")
-            st.text(f"> Runtime \t\t: {t1-t0:.2f} s")
+            st.text(f"> Processing Time \t: {t1 - t0:.2f} s")
+
+            nama_file_grid = st.text_input("Output File Name")
+            with open("temp.vts", "rb") as file_vts:
+                downloadBtn = st.download_button(label="Download VTS",
+                                                 data=file_vts,
+                                                 file_name=f"{nama_file_grid}.vts")
+                if downloadBtn:
+                    st.markdown("***")
+                    st.text(f"{nama_file_grid}.vts created")
+                    # time.sleep(30)
+                    file_vts.close()
+                    os.remove("temp.vts")
 
     if selected == "Stacking":
         st.title("Stacking App")

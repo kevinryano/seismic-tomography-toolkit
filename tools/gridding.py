@@ -6,7 +6,7 @@ import pandas as pd
 from pyevtk.hl import pointsToVTK, gridToVTK
 from scipy.interpolate import griddata, Rbf
 
-def grid_vel(data, delta=20, interp_method="rbf"):
+def grid_vel(data, deltax=20, deltay=20, deltaz=20, interp_method="rbf"):
     data = pd.read_csv(data)
     # Reformat data to numpy array
     x = data['X'].values
@@ -17,9 +17,9 @@ def grid_vel(data, delta=20, interp_method="rbf"):
     vp_vs = data['Vp/Vs'].values
 
     # Create spatial grid
-    grid_x, grid_y, grid_z = np.meshgrid(np.arange(min(x), max(x)+1, delta),
-                                         np.arange(min(y), max(y)+1, delta),
-                                         np.arange(min(z), max(z)+1, delta))
+    grid_x, grid_y, grid_z = np.meshgrid(np.arange(min(x), max(x)+1, deltax),
+                                         np.arange(min(y), max(y)+1, deltay),
+                                         np.arange(min(z), max(z)+1, deltaz))
 
     # Interpolate Vp, Vs, Vp/Vs
     if interp_method == "linear":
@@ -34,6 +34,4 @@ def grid_vel(data, delta=20, interp_method="rbf"):
     return grid_x, grid_y, grid_z, grid_vp, grid_vs, grid_ps
 
 def create_vts(x, y, z, vp, vs, ps, nama_file="tomogram"):
-    # os.makedirs("Hasil Gridding", exist_ok=True)
-    # gridToVTK(f"./Hasil Gridding/{nama_file}", x, y, z, pointData={"Vp":vp, "Vs":vs, "Vp/Vs":ps})
     gridToVTK(nama_file, x, y, z, pointData={"Vp": vp, "Vs": vs, "Vp/Vs": ps})
