@@ -18,7 +18,7 @@ This feature will facilitate the stacking of seismic waveforms to enhance signal
 
 ### Relative Velocity Change (dv/v) Inversion
 
-The upcoming versions will introduce a powerful tool for performing relative velocity change inversion (dv/v inversion). This technique allows users to estimate variations in seismic velocity, providing crucial information about subsurface structures and potential fluid migration pathways.
+The upcoming versions will introduce a powerful tool for performing relative velocity change inversion (dv/v inversion). This technique allows users to estimate variations in seismic velocity, providing crucial information about subsurface structures.
 
 We welcome contributions from the community, be it bug fixes, new feature implementations, or suggestions to improve the overall functionality of the toolbox. Together, we can build an indispensable resource for seismic velocity data processing, empowering researchers and practitioners in their exploration and understanding of the Earth's subsurface.
 
