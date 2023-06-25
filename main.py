@@ -10,7 +10,7 @@ from tools.gridding import grid_vel, create_vts
 def main():
     with st.sidebar:
         selected = option_menu(
-            menu_title="Tool Bar",
+            menu_title="Menu Bar",
             options=["Home", "Gridding", "Stacking", "Inversion"],
             menu_icon="cast",
             default_index=0
